@@ -22,6 +22,11 @@ Dependencies
 4.- kubectl cli https://kubernetes.io/docs/tasks/tools/install-kubectl/
 
 
+Note
+
+1.- if you are behind a corporate proxy you may need to make sure helm, kop, kubectl, and aws config file are set up with your proxy settings.
+
+
 ## Optional step to create a user name kops to handle our cluster creating process
 
 a.- run the following commands
