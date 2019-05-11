@@ -2,7 +2,7 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  namespace: develop
+  namespace: default
   name: jenkins-app
   labels:
     app: jenkins-app
@@ -28,7 +28,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: develop
+  namespace: default
   name: jenkins-service
   labels:
     dns: route53
@@ -49,7 +49,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: jenkins-ingress
-  namespace: develop
+  namespace: default
   annotations:
     kubernetes.io/ingress.class: nginx
 spec:
