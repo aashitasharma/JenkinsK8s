@@ -116,6 +116,6 @@ a.- run the following commands
    
   c.- This will take ~5 minutes or so, but you can always check on status of deployment by either logging into the dashboard UI or running the following command
   
-       Kubectl get pods                 ## this will give you pod creating status in the default namespace    
+       kubectl get pods                 ## this will give you pod creating status in the default namespace    
        kubectl get service              ## this will give you all the services created in the default namespace 
        kubectl get ingress              ## will give you all ingress resources created in the default namespace 
