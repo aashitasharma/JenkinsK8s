@@ -96,7 +96,7 @@ a.- run the following commands
   e.- Navigate to following url and login     http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/ 
  
 
-## Add Helm charts to rapid development
+## Add Helm charts for rapid development
 
    a.- run this if you don’t have helm already installed
 
