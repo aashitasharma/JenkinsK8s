@@ -107,7 +107,7 @@ a.- run the following commands
          
      	helm install stable/nginx-ingress --name <name-of-your-controller> --namespace ingress-nginx -f values.yaml 
 
-## Create Pods
+## Deploy Jenkins to your cluster
   a.- Sanitize jenkins-deployment.yaml by searching for ##replace with your specs## and replaceing those with your specs
 
   b.- Navigate to /Jenkins directory and run the following command to create our Jenkins instance
@@ -119,3 +119,11 @@ a.- run the following commands
        kubectl get pods                 ## this will give you pod creating status in the default namespace    
        kubectl get service              ## this will give you all the services created in the default namespace 
        kubectl get ingress              ## will give you all ingress resources created in the default namespace 
+       
+   d.- Run the following command to grab the token you will need to login to your jenkins instance
+       
+       kubectl logs jenins-service
+   e.- Run the following command to grab external ip address to your Jenkins box.
+       
+       kubectl get service --name jenkins-service | kubectl get service -n <whatever namespace you used> --name jenkins-service
+       
