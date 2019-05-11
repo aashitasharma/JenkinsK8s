@@ -1,0 +1,65 @@
+##Deployment Definition
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  namespace: develop
+  name: jenkins-app
+  labels:
+    app: jenkins-app
+spec:
+  selector:
+    matchLabels:
+      app: jenkins-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jenkins-app
+    spec:
+      containers:
+      - name: jenkins-prod
+        ##replace with your specification##
+        ##jenkins image location if you have your own image replce it here##
+        image: jenkins/jenkins
+        ports:
+        - containerPort: 8080
+---
+##Service definition
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: develop
+  name: jenkins-service
+  labels:
+    dns: route53
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    name: http
+    targetPort: 8080
+  - port: 443
+    name: https
+    targetPort: 8080
+  selector:
+    app: jenkins-app
+---
+##Ingress Definition##
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: jenkins-ingress
+  namespace: develop
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  ##replace with your specification##
+  ##this is optional but if you have a host put it here##
+  - host: mydomain.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: jenkins-service
+          servicePort: 80

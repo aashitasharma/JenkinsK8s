@@ -1,0 +1,17 @@
+controller:
+  service:
+    targetPorts:
+      http: http
+      https: http
+    labels:
+      dns: "route53"
+    annotations:
+      ##replace with your specification##
+      ##replace with domain you  wish to use##
+      domainName: "www.mydomain.com"
+      ##replace with your specification##
+      ##replce the url with your certificate location found in your ACM certification manager service in AWS##
+      # service.beta.kubernetes.io/aws-load-balancer-ssl-cert: 
+      service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+      service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+      service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: '3600'
