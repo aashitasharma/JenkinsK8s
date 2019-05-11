@@ -95,7 +95,8 @@ a.- run the following commands
 
       kubectl get sa -n kube-system
 
-   d.- initialize helm by running the following command. You should get happy helming message if successful 
+   d.- initialize helm by running the following command. You should get "happy helming" message if successful.
+   
       helm init —service-account tiller
 
 ## Add Nginx ingress controller using helm charts
