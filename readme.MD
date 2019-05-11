@@ -11,6 +11,12 @@ AmazonRoute53FullAccess
 AmazonS3FullAccess
 AmazonVPCFullAccess
 
+Dependencies
+-aws cli https://docs.aws.amazon.com/cli/latest/userguide/install-macos.html
+-kops cli  using homebrew run the following...  brew update && brew install kops
+-heml cli  using homebrew run the following... brew update && brew install kubernetes-helm
+-kubectl cli https://kubernetes.io/docs/tasks/tools/install-kubectl/
+
 
 ## Optional step to create a user name kops to handle our cluster creating process
 
@@ -122,7 +128,8 @@ a.- run the following commands
        
    d.- Run the following command to grab the token you will need to login to your jenkins instance
        
-       kubectl logs jenins-service
+       kubectl logs jenkins-service
+       
    e.- Run the following command to grab external ip address to your Jenkins box.
        
        kubectl get service --name jenkins-service | kubectl get service -n <whatever namespace you used> --name jenkins-service
