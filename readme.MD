@@ -41,7 +41,7 @@ a.- run the following commands
 	export KOPS_CLUSTER_NAME=<name of my cluster>.local
 	export KOPS_STATE_STORE=s3://${bucket_name}
 
-4 .-  run to create cluster config 
+4 .-  run to create cluster config. Please adjust master-size, node-count, node-size, zones as needed. The more resource you put here the  more you will pay
 
 	kops create cluster \
 	--master-size=t2.micro \--node-count=1 \
