@@ -81,7 +81,7 @@ a.- run the following commands
 
    kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml
 
-   b.- navigate to root folder and run the following command run the following to create user
+   b.- navigate to K8sDashboard folder and run the following command run the following to create user
 
      Kubectl apply -f dashboard-adminuser.yaml && Kubectl apply -f role-binding-user.yaml 
 
