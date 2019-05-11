@@ -17,7 +17,7 @@ Dependencies
 	
 2.- kops cli  using homebrew run the following...  brew update && brew install kops
 	
-3.- heml cli  using homebrew run the following... brew update && brew install kubernetes-helm
+3.- helm cli  using homebrew run the following... brew update && brew install kubernetes-helm
 
 4.- kubectl cli https://kubernetes.io/docs/tasks/tools/install-kubectl/
 
@@ -100,27 +100,28 @@ a.- run the following commands
 
    a.- run this if you don’t have helm already installed
 
-	brew install kubernetes-helm
+    brew install kubernetes-helm
 
    b.- run the following command to create service account
 
-        Kubectl apply -f  https://gist.githubusercontent.com/chukaofili/0389b3e9cb2b391faa5cf68660a481d3/raw/44643d2d5e735d34a7731f6cc8cab04d5f249b8e/helm-rbac-config.yaml
+    kubectl apply -f  https://gist.githubusercontent.com/chukaofili/0389b3e9cb2b391faa5cf68660a481d3/raw/44643d2d5e735d34a7731f6cc8cab04d5f249b8e/helm-rbac-config.yaml
 
-   c.- run this to make sure service account named tiller has been created in your cluster. Which basically mean get me all the service account in the cube-system namespace
+   c.- run this to make sure service account named tiller has been created in your cluster. Which basically mean get me all the service account in the 'kube-system' namespace
 
-      kubectl get sa -n kube-system
+    kubectl get sa -n kube-system
 
    d.- initialize helm by running the following command. You should get "happy helming" message if successful.
    
-      helm init —service-account tiller
+     helm init —service-account tiller
 
 ## Add Nginx ingress controller using helm charts
   a.- Navigate to the NGINX  directory and run the following command to create nginx-ingress namespace to separate from the ones from our pods
     
-        kubectl create -f   ingress-nginx.json
+      kubectl create -f   ingress-nginx.json
+	
   b.- Navigate to the NGINX directory and search for ##replace with your specification##. Once this is sanitized with your specs you can run the following
          
-     	helm install stable/nginx-ingress --name <name-of-your-controller> --namespace ingress-nginx -f values.yaml 
+     helm install stable/nginx-ingress --name <name-of-your-controller> --namespace ingress-nginx -f values.yaml 
 
 ## Deploy Jenkins to your cluster
   a.- Sanitize jenkins-deployment.yaml by searching for ##replace with your specs## and replaceing those with your specs
