@@ -24,7 +24,7 @@ Dependencies
 
 Note
 
-1.- if you are behind a corporate proxy you may need to make sure helm, kop, kubectl, and aws config file are set up with your proxy settings.
+1.- if you are behind a corporate proxy you may need to make sure helm, kop, kubectl, and aws config files are set up with your proxy settings.
 
 
 ## Optional step to create a user name kops to handle our cluster creating process
