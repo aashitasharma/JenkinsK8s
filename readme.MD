@@ -1,7 +1,7 @@
 ## Description
 the purpose of this repo is to guide you to a very simple cluster creation process of Jenkins using kubernetes and Nginx on top of AWS. By the end of this guide you should have a working Jenkins cluster that can scale up or down based on your needs. Please note I intentionally left our DNS set up as I thought that would be a bit difference depending on how or who you registered your domains with.
 
-## Create cluster
+## Creating the cluster
 
 Assumptions
 
