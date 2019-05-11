@@ -108,10 +108,14 @@ a.- run the following commands
      	helm install stable/nginx-ingress --name <name-of-your-controller> --namespace ingress-nginx -f values.yaml 
 
 ## Create Pods
-    a.- Sanitize Jenkins-deployment.yaml. Search for ##replace with your specs##
+  a.- Sanitize jenkins-deployment.yaml by searching for ##replace with your specs## and replaceing those with your specs
 
-    b.- Navigate to Jenkins directory and run the following command to create our Jenkins instance
-        kubectl apply -f Jenkins-deployment.yaml
+  b.- Navigate to /Jenkins directory and run the following command to create our Jenkins instance
+  
+        kubectl apply -f jenkins-deployment.yaml
    
-    c.- this will take about 5 minutes or so but you can always check on status of deployment by either logging into the dashboard UI or running the following command
-       Kubectl get pods                   ## this will give you pod creating status in the default namespace        kubectl get service              ## this will give you all the services created in the default namespace . If successful it will give you the external address you can reach your app         kubectl get ingress              ## will give you all ingress resources created in the default namespace 
+  c.- This will take ~5 minutes or so, but you can always check on status of deployment by either logging into the dashboard UI or running the following command
+  
+       Kubectl get pods                 ## this will give you pod creating status in the default namespace    
+       kubectl get service              ## this will give you all the services created in the default namespace 
+       kubectl get ingress              ## will give you all ingress resources created in the default namespace 
