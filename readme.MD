@@ -79,7 +79,7 @@ a.- run the following commands
 
   a.- run the following to enable dashboard ui
 
-   kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml
 
    b.- navigate to K8sDashboard folder and run the following command run the following to create user
 
