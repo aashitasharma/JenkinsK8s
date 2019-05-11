@@ -1,4 +1,4 @@
-##Create cluster
+## Create cluster
 
 Assumptions
 IAM role with the following permissions
@@ -9,7 +9,7 @@ AmazonS3FullAccess
 AmazonVPCFullAccess
 
 
-##Optional step to create a user name kops to handle our cluster creating process
+## Optional step to create a user name kops to handle our cluster creating process
 
 a.- run the following commands
 	aws iam create-group --group-name kops
@@ -23,7 +23,7 @@ a.- run the following commands
 	aws iam create-access-key --user-name kops
 
 
-## Create Cluster  1.- run  this to create s3 bucket
+## Create Cluster
 
 1.- run the following command to create S3 space
 
