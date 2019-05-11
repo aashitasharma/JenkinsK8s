@@ -1,15 +1,18 @@
-##Create cluster
+## Description
+the purpose of this repo is to guide you to a very simple cluster creation process of Jenkins using kubernetes and Nginx on top of AWS. By the end of this guide you should have a working Jenkins cluster that can scale up or down based on your needs. Please note I intentionally left our DNS set up as I thought that would be a bit difference depending on how or who you registered your domains with.
+
+## Create cluster
 
 Assumptions
-IAM role with the following permissions
 
+IAM role with the following permissions
 AmazonEC2FullAccess
 AmazonRoute53FullAccess
 AmazonS3FullAccess
 AmazonVPCFullAccess
 
 
-##Optional step to create a user name kops to handle our cluster creating process
+## Optional step to create a user name kops to handle our cluster creating process
 
 a.- run the following commands
 	aws iam create-group --group-name kops
@@ -23,7 +26,7 @@ a.- run the following commands
 	aws iam create-access-key --user-name kops
 
 
-## Create Cluster  1.- run  this to create s3 bucket
+## Create Cluster
 
 1.- run the following command to create S3 space
 
@@ -41,7 +44,7 @@ a.- run the following commands
 	export KOPS_CLUSTER_NAME=<name of my cluster>.local
 	export KOPS_STATE_STORE=s3://${bucket_name}
 
-4 .-  run to create cluster config 
+4 .-  run to create cluster config. Please adjust master-size, node-count, node-size, zones as needed. The more resource you put here the  more you will pay
 
 	kops create cluster \
 	--master-size=t2.micro \--node-count=1 \
@@ -78,7 +81,7 @@ a.- run the following commands
   e.- Navigate to following url and login     http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/ 
  
 
-##Add Helm charts to rapid development
+## Add Helm charts to rapid development
 
    a.- run this if you don’t have helm already installed
 
@@ -92,24 +95,35 @@ a.- run the following commands
 
       kubectl get sa -n kube-system
 
-   d.- initialize helm by running the following command. You should get happy helming message if successful 
+   d.- initialize helm by running the following command. You should get "happy helming" message if successful.
+   
       helm init —service-account tiller
 
 ## Add Nginx ingress controller using helm charts
+  a.- Navigate to the NGINX  directory and run the following command to create nginx-ingress namespace to separate from the ones from our pods
     
-    a.-  Navigate to the NGINX  directory and run the following command to create nginx-ingress namespace to separate from the ones from our pods
-
-          kubectl create -f   ingress-nginx.json
+        kubectl create -f   ingress-nginx.json
+  b.- Navigate to the NGINX directory and search for ##replace with your specification##. Once this is sanitized with your specs you can run the following
          
-    b.-  Navigate to the NGINX directory and search for ##replace with your specification##. Once this is sanitized with your specs you can run the following
-
      	helm install stable/nginx-ingress --name <name-of-your-controller> --namespace ingress-nginx -f values.yaml 
 
-## Create Pods
-    a.- Sanitize Jenkins-deployment.yaml. Search for ##replace with your specs##
+## Deploy Jenkins to your cluster
+  a.- Sanitize jenkins-deployment.yaml by searching for ##replace with your specs## and replaceing those with your specs
 
-    b.- Navigate to Jenkins directory and run the following command to create our Jenkins instance
-        kubectl apply -f Jenkins-deployment.yaml
+  b.- Navigate to /Jenkins directory and run the following command to create our Jenkins instance
+  
+        kubectl apply -f jenkins-deployment.yaml
    
-    c.- this will take about 5 minutes or so but you can always check on status of deployment by either logging into the dashboard UI or running the following command
-       Kubectl get pods                   ## this will give you pod creating status in the default namespace        kubectl get service              ## this will give you all the services created in the default namespace . If successful it will give you the external address you can reach your app         kubectl get ingress              ## will give you all ingress resources created in the default namespace 
+  c.- This will take ~5 minutes or so, but you can always check on status of deployment by either logging into the dashboard UI or running the following command
+  
+       kubectl get pods                 ## this will give you pod creating status in the default namespace    
+       kubectl get service              ## this will give you all the services created in the default namespace 
+       kubectl get ingress              ## will give you all ingress resources created in the default namespace 
+       
+   d.- Run the following command to grab the token you will need to login to your jenkins instance
+       
+       kubectl logs jenins-service
+   e.- Run the following command to grab external ip address to your Jenkins box.
+       
+       kubectl get service --name jenkins-service | kubectl get service -n <whatever namespace you used> --name jenkins-service
+       
