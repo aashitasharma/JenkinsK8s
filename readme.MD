@@ -12,10 +12,10 @@ AmazonS3FullAccess
 AmazonVPCFullAccess
 
 Dependencies
--aws cli https://docs.aws.amazon.com/cli/latest/userguide/install-macos.html
--kops cli  using homebrew run the following...  brew update && brew install kops
--heml cli  using homebrew run the following... brew update && brew install kubernetes-helm
--kubectl cli https://kubernetes.io/docs/tasks/tools/install-kubectl/
+	1.- aws cli https://docs.aws.amazon.com/cli/latest/userguide/install-macos.html
+	2.- kops cli  using homebrew run the following...  brew update && brew install kops
+	3.- heml cli  using homebrew run the following... brew update && brew install kubernetes-helm
+	4.- kubectl cli https://kubernetes.io/docs/tasks/tools/install-kubectl/
 
 
 ## Optional step to create a user name kops to handle our cluster creating process
