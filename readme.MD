@@ -100,13 +100,11 @@ a.- run the following commands
       helm init —service-account tiller
 
 ## Add Nginx ingress controller using helm charts
+  a.- Navigate to the NGINX  directory and run the following command to create nginx-ingress namespace to separate from the ones from our pods
     
-    a.-  Navigate to the NGINX  directory and run the following command to create nginx-ingress namespace to separate from the ones from our pods
-
-          kubectl create -f   ingress-nginx.json
+        kubectl create -f   ingress-nginx.json
+  b.- Navigate to the NGINX directory and search for ##replace with your specification##. Once this is sanitized with your specs you can run the following
          
-    b.-  Navigate to the NGINX directory and search for ##replace with your specification##. Once this is sanitized with your specs you can run the following
-
      	helm install stable/nginx-ingress --name <name-of-your-controller> --namespace ingress-nginx -f values.yaml 
 
 ## Create Pods
