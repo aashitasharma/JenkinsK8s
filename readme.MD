@@ -1,7 +1,7 @@
 ## Description
 the purpose of this repo is to guide you to a very simple cluster creation process of Jenkins using kubernetes and Nginx on top of AWS. By the end of this guide you should have a working Jenkins cluster that can scale up or down based on your needs. Please note I intentionally left our DNS set up as I thought that would be a bit difference depending on how or who you registered your domains with.
 
-## Create cluster
+## Creating the cluster
 
 Assumptions
 
@@ -10,6 +10,21 @@ AmazonEC2FullAccess
 AmazonRoute53FullAccess
 AmazonS3FullAccess
 AmazonVPCFullAccess
+
+Dependencies
+
+1.- aws cli https://docs.aws.amazon.com/cli/latest/userguide/install-macos.html
+	
+2.- kops cli  using homebrew run the following...  brew update && brew install kops
+	
+3.- helm cli  using homebrew run the following... brew update && brew install kubernetes-helm
+
+4.- kubectl cli https://kubernetes.io/docs/tasks/tools/install-kubectl/
+
+
+Note
+
+1.- if you are behind a corporate proxy you may need to make sure helm, kop, kubectl, and aws config files are set up with your proxy settings.
 
 
 ## Optional step to create a user name kops to handle our cluster creating process
@@ -64,9 +79,9 @@ a.- run the following commands
 
   a.- run the following to enable dashboard ui
 
-   kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml
 
-   b.- navigate to root folder and run the following command run the following to create user
+   b.- navigate to K8sDashboard folder and run the following command run the following to create user
 
      Kubectl apply -f dashboard-adminuser.yaml && Kubectl apply -f role-binding-user.yaml 
 
@@ -81,31 +96,32 @@ a.- run the following commands
   e.- Navigate to following url and login     http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/ 
  
 
-## Add Helm charts to rapid development
+## Add Helm charts for rapid development
 
    a.- run this if you don’t have helm already installed
 
-	brew install kubernetes-helm
+    brew install kubernetes-helm
 
    b.- run the following command to create service account
 
-        Kubectl apply -f  https://gist.githubusercontent.com/chukaofili/0389b3e9cb2b391faa5cf68660a481d3/raw/44643d2d5e735d34a7731f6cc8cab04d5f249b8e/helm-rbac-config.yaml
+    kubectl apply -f  https://gist.githubusercontent.com/chukaofili/0389b3e9cb2b391faa5cf68660a481d3/raw/44643d2d5e735d34a7731f6cc8cab04d5f249b8e/helm-rbac-config.yaml
 
-   c.- run this to make sure service account named tiller has been created in your cluster. Which basically mean get me all the service account in the cube-system namespace
+   c.- run this to make sure service account named tiller has been created in your cluster. Which basically mean get me all the service account in the 'kube-system' namespace
 
-      kubectl get sa -n kube-system
+    kubectl get sa -n kube-system
 
    d.- initialize helm by running the following command. You should get "happy helming" message if successful.
    
-      helm init —service-account tiller
+     helm init —service-account tiller
 
 ## Add Nginx ingress controller using helm charts
   a.- Navigate to the NGINX  directory and run the following command to create nginx-ingress namespace to separate from the ones from our pods
     
-        kubectl create -f   ingress-nginx.json
+      kubectl create -f   ingress-nginx.json
+	
   b.- Navigate to the NGINX directory and search for ##replace with your specification##. Once this is sanitized with your specs you can run the following
          
-     	helm install stable/nginx-ingress --name <name-of-your-controller> --namespace ingress-nginx -f values.yaml 
+     helm install stable/nginx-ingress --name <name-of-your-controller> --namespace ingress-nginx -f values.yaml 
 
 ## Deploy Jenkins to your cluster
   a.- Sanitize jenkins-deployment.yaml by searching for ##replace with your specs## and replaceing those with your specs
@@ -122,7 +138,8 @@ a.- run the following commands
        
    d.- Run the following command to grab the token you will need to login to your jenkins instance
        
-       kubectl logs jenins-service
+       kubectl logs jenkins-service
+       
    e.- Run the following command to grab external ip address to your Jenkins box.
        
        kubectl get service --name jenkins-service | kubectl get service -n <whatever namespace you used> --name jenkins-service
