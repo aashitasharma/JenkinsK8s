@@ -1,8 +1,11 @@
+## Description
+the purpose of this repo is to guide you to a very simple cluster creation process of Jenkins using kubernetes and Nginx on top of AWS. By the end of this guide you should have a working Jenkins cluster that can scale up or down based on your needs. Please note I intentionally left our DNS set up as I thought that would be a bit difference depending on how or who you registered your domains with.
+
 ## Create cluster
 
 Assumptions
-IAM role with the following permissions
 
+IAM role with the following permissions
 AmazonEC2FullAccess
 AmazonRoute53FullAccess
 AmazonS3FullAccess
@@ -78,7 +81,7 @@ a.- run the following commands
   e.- Navigate to following url and login     http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/ 
  
 
-##Add Helm charts to rapid development
+## Add Helm charts to rapid development
 
    a.- run this if you don’t have helm already installed
 
